@@ -1,0 +1,241 @@
+openapi: 3.0.0
+info:
+  title: OiOi content management API
+  description: OiOi content management API spec
+  version: 1.0.0
+security:
+  - BearerAuth: []
+paths:
+  /devices:
+    get:
+      operationId: listDevices
+      summary: List devices
+      description: List devices
+      tags:
+        - Devices
+      responses:
+        '200':
+          description: Devices
+          content:
+            application/json;charset=utf-8:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Device'
+        '400':
+          description: Invalid request was sent to the server
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: Attempted to make a call with unauthorized client
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal server error
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    post:
+      operationId: createDevice
+      summary: Create a device
+      description: Create device
+      tags:
+        - Devices
+      requestBody:
+        content:
+          application/json;charset=utf-8:
+            schema:
+              $ref: '#/components/schemas/Device'
+        description: Payload
+        required: true
+      responses:
+        '200':
+          description: Created device
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Device'
+        '400':
+          description: Invalid request was sent to the server
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: Attempted to make a call with unauthorized client
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal server error
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  '/devices/{deviceId}':
+    get:
+      operationId: findDevice
+      summary: Finds a device
+      description: Finds a device
+      tags:
+        - Devices
+      parameters:
+        - name: deviceId
+          required: true
+          in: path
+          description: device id
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Found device
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Device'
+        '400':
+          description: Invalid request was sent to the server
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: Attempted to make a call with unauthorized client
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal server error
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    put:
+      operationId: updateDevice
+      summary: Updates device
+      description: Updates a device
+      tags:
+        - Devices
+      parameters:
+        - name: deviceId
+          required: true
+          in: path
+          description: device id
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        content:
+          application/json;charset=utf-8:
+            schema:
+              $ref: '#/components/schemas/Device'
+        description: Payload
+        required: true
+      responses:
+        '200':
+          description: Updated device
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Device'
+        '400':
+          description: Invalid request was sent to the server
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: Attempted to make a call with unauthorized client
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal server error
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    delete:
+      operationId: deleteDevice
+      summary: Delete device
+      description: Delete a device
+      tags:
+        - Devices
+      parameters:
+        - name: deviceId
+          required: true
+          in: path
+          description: device id
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '204':
+          description: Successful removal
+        '400':
+          description: Invalid request was sent to the server
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: Attempted to make a call with unauthorized client
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal server error
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+servers:
+  - url: /v1
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+  schemas:
+
+    Device:
+      type: object
+      required:
+        - name
+      properties:
+        id:
+          description: Device id.
+          type: string
+          format: uuid
+          readOnly: true
+        name:
+          description: Device name.
+          type: string
+        createdAt:
+          description: Creation time
+          type: string
+          format: date-time
+          readOnly: true
+        modifiedAt:
+          description: Last modification time
+          type: string
+          format: date-time
+          readOnly: true
+          
+    ErrorResponse:
+      type: object
+      properties:
+        message:
+          description: The error message
+          type: string
+          readOnly: true
