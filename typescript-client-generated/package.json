@@ -1,6 +1,6 @@
 {
   "name": "oioi-cm-api-client",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "swagger client for oioi-cm-api-client",
   "author": "Swagger Codegen Contributors",
   "keywords": [
@@ -12,7 +12,7 @@
   "license": "Unlicense",
   "main": "./dist/index.js",
   "typings": "./dist/index.d.ts",
-  "scripts" : {
+  "scripts": {
     "build": "tsc --outDir dist/"
   },
   "dependencies": {
