@@ -1,0 +1,5 @@
+swagger-codegen-cli-*.jar
+node_modules
+jaxrs-spec-generated/target/
+java-generated/gradle
+typescript-client-generated/dist
