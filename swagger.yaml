@@ -199,6 +199,800 @@ paths:
             application/json;charset=utf-8:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+                
+  /applications:
+    get:
+      operationId: listApplications
+      summary: List applications
+      description: List applications
+      tags:
+        - Applications
+      responses:
+        '200':
+          description: Applications
+          content:
+            application/json;charset=utf-8:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Application'
+        '400':
+          description: Invalid request was sent to the server
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: Attempted to make a call with unauthorized client
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal server error
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    post:
+      operationId: createApplication
+      summary: Create an application
+      description: Create application
+      tags:
+        - Applications
+      requestBody:
+        content:
+          application/json;charset=utf-8:
+            schema:
+              $ref: '#/components/schemas/Application'
+        description: Payload
+        required: true
+      responses:
+        '200':
+          description: Created application
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Application'
+        '400':
+          description: Invalid request was sent to the server
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: Attempted to make a call with unauthorized client
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal server error
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  '/applications/{applicationId}':
+    get:
+      operationId: findApplication
+      summary: Finds an application
+      description: Finds an application
+      tags:
+        - Applications
+      parameters:
+        - name: applicationId
+          required: true
+          in: path
+          description: application id
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Found application
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Application'
+        '400':
+          description: Invalid request was sent to the server
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: Attempted to make a call with unauthorized client
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal server error
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    put:
+      operationId: updateApplication
+      summary: Updates application
+      description: Updates an application
+      tags:
+        - Applications
+      parameters:
+        - name: applicationId
+          required: true
+          in: path
+          description: application id
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        content:
+          application/json;charset=utf-8:
+            schema:
+              $ref: '#/components/schemas/Application'
+        description: Payload
+        required: true
+      responses:
+        '200':
+          description: Updated application
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Application'
+        '400':
+          description: Invalid request was sent to the server
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: Attempted to make a call with unauthorized client
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal server error
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    delete:
+      operationId: deleteApplication
+      summary: Delete application
+      description: Delete an application
+      tags:
+        - Applications
+      parameters:
+        - name: applicationId
+          required: true
+          in: path
+          description: application id
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '204':
+          description: Successful removal
+        '400':
+          description: Invalid request was sent to the server
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: Attempted to make a call with unauthorized client
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal server error
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  '/devices/{deviceId}/applications':
+    get:
+      operationId: listDeviceApplications
+      summary: List device applications
+      description: Lists device applications
+      tags:
+        - DeviceApplications
+      parameters:
+        - name: deviceId
+          required: true
+          in: path
+          description: device id
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Found device applications
+          content:
+            application/json;charset=utf-8:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/DeviceApplication'
+        '400':
+          description: Invalid request was sent to the server
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: Attempted to make a call with unauthorized client
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal server error
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    post:
+      operationId: createDeviceApplication
+      summary: Create a device application
+      description: Create device application
+      tags:
+        - DeviceApplications
+      parameters:
+        - name: applicationId
+          required: true
+          in: path
+          description: application id
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        content:
+          application/json;charset=utf-8:
+            schema:
+              $ref: '#/components/schemas/Application'
+        description: Payload
+        required: true
+      responses:
+        '200':
+          description: Created application
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Application'
+        '400':
+          description: Invalid request was sent to the server
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: Attempted to make a call with unauthorized client
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal server error
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  '/devices/{deviceId}/applications/{deviceApplicationId}':
+    get:
+      operationId: findDeviceApplication
+      summary: Finds a device application
+      description: Finds a device application
+      tags:
+        - DeviceApplications
+      parameters:
+        - name: applicationId
+          required: true
+          in: path
+          description: application id
+          schema:
+            type: string
+            format: uuid
+        - name: deviceApplicationId
+          required: true
+          in: path
+          description: application id
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Found device application
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/DeviceApplication'
+        '400':
+          description: Invalid request was sent to the server
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: Attempted to make a call with unauthorized client
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal server error
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    put:
+      operationId: updateDeviceApplication
+      summary: Updates device application
+      description: Updates a device application
+      tags:
+        - DeviceApplications
+      parameters:
+        - name: applicationId
+          required: true
+          in: path
+          description: application id
+          schema:
+            type: string
+            format: uuid
+        - name: deviceApplicationId
+          required: true
+          in: path
+          description: application id
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        content:
+          application/json;charset=utf-8:
+            schema:
+              $ref: '#/components/schemas/DeviceApplication'
+        description: Payload
+        required: true
+      responses:
+        '200':
+          description: Updated application
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/DeviceApplication'
+        '400':
+          description: Invalid request was sent to the server
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: Attempted to make a call with unauthorized client
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal server error
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    delete:
+      operationId: deleteDeviceApplication
+      summary: Delete device application
+      description: Delete a device application
+      tags:
+        - DeviceApplications
+      parameters:
+        - name: applicationId
+          required: true
+          in: path
+          description: application id
+          schema:
+            type: string
+            format: uuid
+        - name: deviceApplicationId
+          required: true
+          in: path
+          description: application id
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '204':
+          description: Successful removal
+        '400':
+          description: Invalid request was sent to the server
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: Attempted to make a call with unauthorized client
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal server error
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /medias:
+    get:
+      operationId: listMedias
+      summary: List medias
+      description: List medias
+      tags:
+        - Medias
+      parameters:
+        - name: groupId
+          required: true
+          in: query
+          description: group id
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Medias
+          content:
+            application/json;charset=utf-8:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Media'
+        '400':
+          description: Invalid request was sent to the server
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: Attempted to make a call with unauthorized client
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal server error
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    post:
+      operationId: createMedia
+      summary: Create a media
+      description: Create media
+      tags:
+        - Medias
+      parameters:
+        - name: groupId
+          required: true
+          in: query
+          description: group id
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        content:
+          application/json;charset=utf-8:
+            schema:
+              $ref: '#/components/schemas/Media'
+        description: Payload
+        required: true
+      responses:
+        '200':
+          description: Created media
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Media'
+        '400':
+          description: Invalid request was sent to the server
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: Attempted to make a call with unauthorized client
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal server error
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  '/medias/{mediaId}':
+    get:
+      operationId: findMedia
+      summary: Finds a media
+      description: Finds a media
+      tags:
+        - Medias
+      parameters:
+        - name: mediaId
+          required: true
+          in: path
+          description: media id
+          schema:
+            type: string
+            format: uuid            
+      responses:
+        '200':
+          description: Found media
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Media'
+        '400':
+          description: Invalid request was sent to the server
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: Attempted to make a call with unauthorized client
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal server error
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    put:
+      operationId: updateMedia
+      summary: Updates media
+      description: Updates a media
+      tags:
+        - Medias
+      parameters:
+        - name: mediaId
+          required: true
+          in: path
+          description: media id
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        content:
+          application/json;charset=utf-8:
+            schema:
+              $ref: '#/components/schemas/Media'
+        description: Payload
+        required: true
+      responses:
+        '200':
+          description: Updated media
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Media'
+        '400':
+          description: Invalid request was sent to the server
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: Attempted to make a call with unauthorized client
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal server error
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    delete:
+      operationId: deleteMedia
+      summary: Delete media
+      description: Delete a media
+      tags:
+        - Medias
+      parameters:
+        - name: mediaId
+          required: true
+          in: path
+          description: media id
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '204':
+          description: Successful removal
+        '400':
+          description: Invalid request was sent to the server
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: Attempted to make a call with unauthorized client
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal server error
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  '/devices/{deviceId}/applications/{deviceApplicationId}/resources':
+    get:
+      operationId: listDeviceApplicationResources
+      summary: Lists device application resources
+      description: Lists resources from device application
+      tags:
+        - DeviceApplicationResources
+      parameters:
+        - name: applicationId
+          required: true
+          in: path
+          description: application id
+          schema:
+            type: string
+            format: uuid
+        - name: deviceApplicationId
+          required: true
+          in: path
+          description: application id
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Found device application resources
+          content:
+            application/json;charset=utf-8:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/DeviceApplicationResource'
+        '400':
+          description: Invalid request was sent to the server
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: Attempted to make a call with unauthorized client
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal server error
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    post:
+      operationId: createDeviceApplicationResource
+      summary: Create device application resource
+      description: Create device application resource
+      tags:
+        - DeviceApplicationResources
+      parameters:
+        - name: applicationId
+          required: true
+          in: path
+          description: application id
+          schema:
+            type: string
+            format: uuid
+        - name: deviceApplicationId
+          required: true
+          in: path
+          description: application id
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        content:
+          application/json;charset=utf-8:
+            schema:
+              $ref: '#/components/schemas/DeviceApplicationResource'
+        description: Payload
+        required: true
+      responses:
+        '200':
+          description: Created device application resource
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/DeviceApplicationResource'
+        '400':
+          description: Invalid request was sent to the server
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: Attempted to make a call with unauthorized client
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal server error
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  '/devices/{deviceId}/applications/{deviceApplicationId}/resources/{deviceApplicationResourceId}':
+    get:
+      operationId: findDeviceApplicationResource
+      summary: Find device application resource
+      description: Find a device application resource
+      tags:
+        - DeviceApplicationResources
+      parameters:
+        - name: applicationId
+          required: true
+          in: path
+          description: application id
+          schema:
+            type: string
+            format: uuid
+        - name: deviceApplicationId
+          required: true
+          in: path
+          description: application id
+          schema:
+            type: string
+            format: uuid
+        - name: deviceApplicationResourceId
+          required: true
+          in: path
+          description: device application resource id
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Found device application resource
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/DeviceApplicationResource'
+        '400':
+          description: Invalid request was sent to the server
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: Attempted to make a call with unauthorized client
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal server error
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+                
 servers:
   - url: /v1
 components:
@@ -207,11 +1001,32 @@ components:
       type: http
       scheme: bearer
   schemas:
+    
+    Meta:
+      type: object
+      required:
+        - name
+        - value
+      properties:
+        name:
+          type: string
+        value:
+          type: string
+          
+    MediaType:
+      type: string
+      enum:
+        - FOLDER
+        - IMAGE
+        - TEXT
+        - VIDEO
+        - PDF
 
     Device:
       type: object
       required:
         - name
+        - apiKey
       properties:
         id:
           description: Device id.
@@ -221,6 +1036,15 @@ components:
         name:
           description: Device name.
           type: string
+        groupId:
+          type: string
+          readOnly: true
+        apiKey:
+          type: string
+        metas:
+          type: array
+          items:
+            $ref: '#/components/schemas/Meta'
         createdAt:
           description: Creation time
           type: string
@@ -232,6 +1056,151 @@ components:
           format: date-time
           readOnly: true
           
+    Application:
+      type: object
+      required:
+        - name
+      properties:
+        id:
+          description: Device id.
+          type: string
+          format: uuid
+          readOnly: true
+        name:
+          description: Application name.
+          type: string
+        structure:
+          $ref: '#/components/schemas/ApplicationStructure'
+        createdAt:
+          description: Creation time
+          type: string
+          format: date-time
+          readOnly: true
+        modifiedAt:
+          description: Last modification time
+          type: string
+          format: date-time
+          readOnly: true
+    
+    ApplicationStructure:
+      type: array
+      items:
+        $ref: '#/components/schemas/ApplicationStructureItem'
+    
+    ApplicationStructureItem:
+      type: object
+      required:
+        - path
+        - allowedTypes
+      properties:
+        path: 
+          type: string
+        allowedTypes:
+          type: array
+          items:
+            $ref: '#/components/schemas/MediaType'
+          
+    DeviceApplication:
+      type: object
+      required:
+        - deviceId
+        - applicationId
+      properties:
+        id:
+          description: Device application id.
+          type: string
+          format: uuid
+          readOnly: true
+        deviceId:
+          description: Device id.
+          type: string
+          format: uuid
+        applicationId:
+          description: Application id.
+          type: string
+          format: uuid
+        createdAt:
+          description: Creation time
+          type: string
+          format: date-time
+          readOnly: true
+        modifiedAt:
+          description: Last modification time
+          type: string
+          format: date-time
+          readOnly: true
+        
+    ResourceStyle:
+      type: object
+      properties:
+        backgroundColor:
+          type: string
+        foregroundColor:
+          type: string
+          
+    DeviceApplicationResource:
+      type: object
+      required:
+        - type
+      properties:
+        id:
+          description: Resource id.
+          type: string
+          format: uuid
+          readOnly: true
+        parentId:
+          description: Parent resource id
+          type: string
+          format: uuid
+        deviceApplicationId:
+          description: Device application id.
+          type: string
+          format: uuid
+          readOnly: true
+        type:
+          $ref: '#/components/schemas/MediaType'
+        data:
+          description: Resource data, either URL on images, videos, etc and text data on text resources
+          type: string
+        styles:
+          $ref: '#/components/schemas/ResourceStyle'
+        createdAt:
+          description: Creation time
+          type: string
+          format: date-time
+          readOnly: true
+        modifiedAt:
+          description: Last modification time
+          type: string
+          format: date-time
+          readOnly: true
+          
+    Media:
+      type: object
+      properties:
+        id:
+          description: Media id.
+          type: string
+          format: uuid
+          readOnly: true
+        url:
+          type: string
+          format: url
+        type:
+          $ref: '#/components/schemas/MediaType'
+        contentType:
+          type: string
+        createdAt:
+          description: Creation time
+          type: string
+          format: date-time
+          readOnly: true
+        modifiedAt:
+          description: Last modification time
+          type: string
+          format: date-time
+          readOnly: true
+            
     ErrorResponse:
       type: object
       properties:
