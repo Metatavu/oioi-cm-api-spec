@@ -13,28 +13,15 @@
 package fi.metatavu.oioi.cm.client.model;
 
 import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonValue;
-import io.swagger.v3.oas.annotations.media.Schema;
+import fi.metatavu.oioi.cm.client.model.ApplicationStructureItem;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
- * ErrorResponse
+ * ApplicationStructure
  */
 
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2019-09-30T18:12:54.816416+03:00[Europe/Helsinki]")public class ErrorResponse {
-
-  @JsonProperty("message")
-
-  private String message = null;
-  /**
-  * The error message
-  * @return message
-  **/
-  @Schema(description = "The error message")
-  public String getMessage() {
-    return message;
-  }
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2019-09-30T18:12:54.816416+03:00[Europe/Helsinki]")public class ApplicationStructure extends ArrayList<ApplicationStructureItem> {
   @Override
   public boolean equals(java.lang.Object o) {
     if (this == o) {
@@ -43,21 +30,19 @@ import io.swagger.v3.oas.annotations.media.Schema;
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    ErrorResponse errorResponse = (ErrorResponse) o;
-    return Objects.equals(this.message, errorResponse.message);
+    return super.equals(o);
   }
 
   @Override
   public int hashCode() {
-    return java.util.Objects.hash(message);
+    return java.util.Objects.hash(super.hashCode());
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class ErrorResponse {\n");
-    
-    sb.append("    message: ").append(toIndentedString(message)).append("\n");
+    sb.append("class ApplicationStructure {\n");
+    sb.append("    ").append(toIndentedString(super.toString())).append("\n");
     sb.append("}");
     return sb.toString();
   }

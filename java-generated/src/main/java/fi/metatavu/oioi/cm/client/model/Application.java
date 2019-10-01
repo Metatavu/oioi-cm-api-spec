@@ -16,15 +16,16 @@ import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
+import fi.metatavu.oioi.cm.client.model.ApplicationStructure;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.time.OffsetDateTime;
 import java.util.UUID;
 
 /**
- * Device
+ * Application
  */
 
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2019-09-30T18:12:54.816416+03:00[Europe/Helsinki]")public class Device {
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2019-09-30T18:12:54.816416+03:00[Europe/Helsinki]")public class Application {
 
   @JsonProperty("id")
 
@@ -34,13 +35,9 @@ import java.util.UUID;
 
   private String name = null;
 
-  @JsonProperty("groupId")
+  @JsonProperty("structure")
 
-  private String groupId = null;
-
-  @JsonProperty("apiKey")
-
-  private String apiKey = null;
+  private ApplicationStructure structure = null;
 
   @JsonProperty("createdAt")
 
@@ -57,7 +54,7 @@ import java.util.UUID;
   public UUID getId() {
     return id;
   }
-  public Device name(String name) {
+  public Application name(String name) {
     this.name = name;
     return this;
   }
@@ -65,41 +62,33 @@ import java.util.UUID;
   
 
   /**
-  * Device name.
+  * Application name.
   * @return name
   **/
-  @Schema(required = true, description = "Device name.")
+  @Schema(required = true, description = "Application name.")
   public String getName() {
     return name;
   }
   public void setName(String name) {
     this.name = name;
   }
-  /**
-  * Get groupId
-  * @return groupId
-  **/
-  @Schema(description = "")
-  public String getGroupId() {
-    return groupId;
-  }
-  public Device apiKey(String apiKey) {
-    this.apiKey = apiKey;
+  public Application structure(ApplicationStructure structure) {
+    this.structure = structure;
     return this;
   }
 
   
 
   /**
-  * Get apiKey
-  * @return apiKey
+  * Get structure
+  * @return structure
   **/
-  @Schema(required = true, description = "")
-  public String getApiKey() {
-    return apiKey;
+  @Schema(description = "")
+  public ApplicationStructure getStructure() {
+    return structure;
   }
-  public void setApiKey(String apiKey) {
-    this.apiKey = apiKey;
+  public void setStructure(ApplicationStructure structure) {
+    this.structure = structure;
   }
   /**
   * Creation time
@@ -125,29 +114,27 @@ import java.util.UUID;
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    Device device = (Device) o;
-    return Objects.equals(this.id, device.id) &&
-        Objects.equals(this.name, device.name) &&
-        Objects.equals(this.groupId, device.groupId) &&
-        Objects.equals(this.apiKey, device.apiKey) &&
-        Objects.equals(this.createdAt, device.createdAt) &&
-        Objects.equals(this.modifiedAt, device.modifiedAt);
+    Application application = (Application) o;
+    return Objects.equals(this.id, application.id) &&
+        Objects.equals(this.name, application.name) &&
+        Objects.equals(this.structure, application.structure) &&
+        Objects.equals(this.createdAt, application.createdAt) &&
+        Objects.equals(this.modifiedAt, application.modifiedAt);
   }
 
   @Override
   public int hashCode() {
-    return java.util.Objects.hash(id, name, groupId, apiKey, createdAt, modifiedAt);
+    return java.util.Objects.hash(id, name, structure, createdAt, modifiedAt);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class Device {\n");
+    sb.append("class Application {\n");
     
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
-    sb.append("    groupId: ").append(toIndentedString(groupId)).append("\n");
-    sb.append("    apiKey: ").append(toIndentedString(apiKey)).append("\n");
+    sb.append("    structure: ").append(toIndentedString(structure)).append("\n");
     sb.append("    createdAt: ").append(toIndentedString(createdAt)).append("\n");
     sb.append("    modifiedAt: ").append(toIndentedString(modifiedAt)).append("\n");
     sb.append("}");

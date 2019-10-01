@@ -21,26 +21,22 @@ import java.time.OffsetDateTime;
 import java.util.UUID;
 
 /**
- * Device
+ * DeviceApplication
  */
 
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2019-09-30T18:12:54.816416+03:00[Europe/Helsinki]")public class Device {
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2019-09-30T18:12:54.816416+03:00[Europe/Helsinki]")public class DeviceApplication {
 
   @JsonProperty("id")
 
   private UUID id = null;
 
-  @JsonProperty("name")
+  @JsonProperty("deviceId")
 
-  private String name = null;
+  private UUID deviceId = null;
 
-  @JsonProperty("groupId")
+  @JsonProperty("applicationId")
 
-  private String groupId = null;
-
-  @JsonProperty("apiKey")
-
-  private String apiKey = null;
+  private UUID applicationId = null;
 
   @JsonProperty("createdAt")
 
@@ -50,56 +46,48 @@ import java.util.UUID;
 
   private OffsetDateTime modifiedAt = null;
   /**
-  * Device id.
+  * Device application id.
   * @return id
   **/
-  @Schema(description = "Device id.")
+  @Schema(description = "Device application id.")
   public UUID getId() {
     return id;
   }
-  public Device name(String name) {
-    this.name = name;
+  public DeviceApplication deviceId(UUID deviceId) {
+    this.deviceId = deviceId;
     return this;
   }
 
   
 
   /**
-  * Device name.
-  * @return name
+  * Device id.
+  * @return deviceId
   **/
-  @Schema(required = true, description = "Device name.")
-  public String getName() {
-    return name;
+  @Schema(required = true, description = "Device id.")
+  public UUID getDeviceId() {
+    return deviceId;
   }
-  public void setName(String name) {
-    this.name = name;
+  public void setDeviceId(UUID deviceId) {
+    this.deviceId = deviceId;
   }
-  /**
-  * Get groupId
-  * @return groupId
-  **/
-  @Schema(description = "")
-  public String getGroupId() {
-    return groupId;
-  }
-  public Device apiKey(String apiKey) {
-    this.apiKey = apiKey;
+  public DeviceApplication applicationId(UUID applicationId) {
+    this.applicationId = applicationId;
     return this;
   }
 
   
 
   /**
-  * Get apiKey
-  * @return apiKey
+  * Application id.
+  * @return applicationId
   **/
-  @Schema(required = true, description = "")
-  public String getApiKey() {
-    return apiKey;
+  @Schema(required = true, description = "Application id.")
+  public UUID getApplicationId() {
+    return applicationId;
   }
-  public void setApiKey(String apiKey) {
-    this.apiKey = apiKey;
+  public void setApplicationId(UUID applicationId) {
+    this.applicationId = applicationId;
   }
   /**
   * Creation time
@@ -125,29 +113,27 @@ import java.util.UUID;
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    Device device = (Device) o;
-    return Objects.equals(this.id, device.id) &&
-        Objects.equals(this.name, device.name) &&
-        Objects.equals(this.groupId, device.groupId) &&
-        Objects.equals(this.apiKey, device.apiKey) &&
-        Objects.equals(this.createdAt, device.createdAt) &&
-        Objects.equals(this.modifiedAt, device.modifiedAt);
+    DeviceApplication deviceApplication = (DeviceApplication) o;
+    return Objects.equals(this.id, deviceApplication.id) &&
+        Objects.equals(this.deviceId, deviceApplication.deviceId) &&
+        Objects.equals(this.applicationId, deviceApplication.applicationId) &&
+        Objects.equals(this.createdAt, deviceApplication.createdAt) &&
+        Objects.equals(this.modifiedAt, deviceApplication.modifiedAt);
   }
 
   @Override
   public int hashCode() {
-    return java.util.Objects.hash(id, name, groupId, apiKey, createdAt, modifiedAt);
+    return java.util.Objects.hash(id, deviceId, applicationId, createdAt, modifiedAt);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class Device {\n");
+    sb.append("class DeviceApplication {\n");
     
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
-    sb.append("    name: ").append(toIndentedString(name)).append("\n");
-    sb.append("    groupId: ").append(toIndentedString(groupId)).append("\n");
-    sb.append("    apiKey: ").append(toIndentedString(apiKey)).append("\n");
+    sb.append("    deviceId: ").append(toIndentedString(deviceId)).append("\n");
+    sb.append("    applicationId: ").append(toIndentedString(applicationId)).append("\n");
     sb.append("    createdAt: ").append(toIndentedString(createdAt)).append("\n");
     sb.append("    modifiedAt: ").append(toIndentedString(modifiedAt)).append("\n");
     sb.append("}");

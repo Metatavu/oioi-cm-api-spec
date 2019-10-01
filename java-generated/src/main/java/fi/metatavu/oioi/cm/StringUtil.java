@@ -12,7 +12,7 @@
 
 package fi.metatavu.oioi.cm;
 
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2019-09-30T10:39:48.030+03:00[Europe/Helsinki]")public class StringUtil {
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2019-09-30T18:12:54.816416+03:00[Europe/Helsinki]")public class StringUtil {
   /**
    * Check if the given array contains the given value (with case-insensitive comparison).
    *
