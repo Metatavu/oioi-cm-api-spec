@@ -313,8 +313,24 @@
   },
   "components" : {
     "schemas" : {
+      "Meta" : {
+        "required" : [ "name", "value" ],
+        "type" : "object",
+        "properties" : {
+          "name" : {
+            "type" : "string"
+          },
+          "value" : {
+            "type" : "string"
+          }
+        }
+      },
+      "MediaType" : {
+        "type" : "string",
+        "enum" : [ "FOLDER", "IMAGE", "TEXT", "VIDEO", "PDF" ]
+      },
       "Device" : {
-        "required" : [ "name" ],
+        "required" : [ "apiKey", "name" ],
         "type" : "object",
         "properties" : {
           "id" : {
@@ -326,6 +342,154 @@
           "name" : {
             "type" : "string",
             "description" : "Device name."
+          },
+          "groupId" : {
+            "type" : "string",
+            "readOnly" : true
+          },
+          "apiKey" : {
+            "type" : "string"
+          },
+          "createdAt" : {
+            "type" : "string",
+            "description" : "Creation time",
+            "format" : "date-time",
+            "readOnly" : true
+          },
+          "modifiedAt" : {
+            "type" : "string",
+            "description" : "Last modification time",
+            "format" : "date-time",
+            "readOnly" : true
+          }
+        }
+      },
+      "Application" : {
+        "required" : [ "name" ],
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "string",
+            "description" : "Device id.",
+            "format" : "uuid",
+            "readOnly" : true
+          },
+          "name" : {
+            "type" : "string",
+            "description" : "Application name."
+          },
+          "structure" : {
+            "$ref" : "#/components/schemas/ApplicationStructure"
+          },
+          "createdAt" : {
+            "type" : "string",
+            "description" : "Creation time",
+            "format" : "date-time",
+            "readOnly" : true
+          },
+          "modifiedAt" : {
+            "type" : "string",
+            "description" : "Last modification time",
+            "format" : "date-time",
+            "readOnly" : true
+          }
+        }
+      },
+      "ApplicationStructure" : {
+        "type" : "array",
+        "items" : {
+          "$ref" : "#/components/schemas/ApplicationStructureItem"
+        }
+      },
+      "ApplicationStructureItem" : {
+        "required" : [ "allowedTypes", "path" ],
+        "type" : "object",
+        "properties" : {
+          "path" : {
+            "type" : "string"
+          },
+          "allowedTypes" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/MediaType"
+            }
+          }
+        }
+      },
+      "DeviceApplication" : {
+        "required" : [ "applicationId", "deviceId" ],
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "string",
+            "description" : "Device application id.",
+            "format" : "uuid",
+            "readOnly" : true
+          },
+          "deviceId" : {
+            "type" : "string",
+            "description" : "Device id.",
+            "format" : "uuid"
+          },
+          "applicationId" : {
+            "type" : "string",
+            "description" : "Application id.",
+            "format" : "uuid"
+          },
+          "createdAt" : {
+            "type" : "string",
+            "description" : "Creation time",
+            "format" : "date-time",
+            "readOnly" : true
+          },
+          "modifiedAt" : {
+            "type" : "string",
+            "description" : "Last modification time",
+            "format" : "date-time",
+            "readOnly" : true
+          }
+        }
+      },
+      "ResourceStyle" : {
+        "type" : "object",
+        "properties" : {
+          "backgroundColor" : {
+            "type" : "string"
+          },
+          "foregroundColor" : {
+            "type" : "string"
+          }
+        }
+      },
+      "Resource" : {
+        "required" : [ "applicationId", "deviceId" ],
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "string",
+            "description" : "Device application id.",
+            "format" : "uuid",
+            "readOnly" : true
+          },
+          "parentId" : {
+            "type" : "string",
+            "description" : "Parent resource id",
+            "format" : "uuid"
+          },
+          "deviceApplicationId" : {
+            "type" : "string",
+            "description" : "Device application id.",
+            "format" : "uuid"
+          },
+          "type" : {
+            "$ref" : "#/components/schemas/MediaType"
+          },
+          "data" : {
+            "type" : "string",
+            "description" : "Resource data, either URL on images, videos, etc and text data on text resources"
+          },
+          "styles" : {
+            "$ref" : "#/components/schemas/ResourceStyle"
           },
           "createdAt" : {
             "type" : "string",

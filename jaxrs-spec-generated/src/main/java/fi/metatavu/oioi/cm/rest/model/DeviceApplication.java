@@ -17,24 +17,23 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import com.fasterxml.jackson.annotation.JsonCreator;
 
 
-public class Device   {
+public class DeviceApplication   {
   private @Valid UUID id = null;
-  private @Valid String name = null;
-  private @Valid String groupId = null;
-  private @Valid String apiKey = null;
+  private @Valid UUID deviceId = null;
+  private @Valid UUID applicationId = null;
   private @Valid OffsetDateTime createdAt = null;
   private @Valid OffsetDateTime modifiedAt = null;
 
   /**
-   * Device id.
+   * Device application id.
    **/
-  public Device id(UUID id) {
+  public DeviceApplication id(UUID id) {
     this.id = id;
     return this;
   }
 
   
-  //@ApiModelProperty(value = "Device id.")
+  //@ApiModelProperty(value = "Device application id.")
   @JsonProperty("id")
 
   public UUID getId() {
@@ -45,66 +44,49 @@ public class Device   {
   }
 
   /**
-   * Device name.
+   * Device id.
    **/
-  public Device name(String name) {
-    this.name = name;
+  public DeviceApplication deviceId(UUID deviceId) {
+    this.deviceId = deviceId;
     return this;
   }
 
   
-  //@ApiModelProperty(required = true, value = "Device name.")
-  @JsonProperty("name")
+  //@ApiModelProperty(required = true, value = "Device id.")
+  @JsonProperty("deviceId")
   @NotNull
 
-  public String getName() {
-    return name;
+  public UUID getDeviceId() {
+    return deviceId;
   }
-  public void setName(String name) {
-    this.name = name;
+  public void setDeviceId(UUID deviceId) {
+    this.deviceId = deviceId;
   }
 
   /**
+   * Application id.
    **/
-  public Device groupId(String groupId) {
-    this.groupId = groupId;
+  public DeviceApplication applicationId(UUID applicationId) {
+    this.applicationId = applicationId;
     return this;
   }
 
   
-  //@ApiModelProperty(value = "")
-  @JsonProperty("groupId")
-
-  public String getGroupId() {
-    return groupId;
-  }
-  public void setGroupId(String groupId) {
-    this.groupId = groupId;
-  }
-
-  /**
-   **/
-  public Device apiKey(String apiKey) {
-    this.apiKey = apiKey;
-    return this;
-  }
-
-  
-  //@ApiModelProperty(required = true, value = "")
-  @JsonProperty("apiKey")
+  //@ApiModelProperty(required = true, value = "Application id.")
+  @JsonProperty("applicationId")
   @NotNull
 
-  public String getApiKey() {
-    return apiKey;
+  public UUID getApplicationId() {
+    return applicationId;
   }
-  public void setApiKey(String apiKey) {
-    this.apiKey = apiKey;
+  public void setApplicationId(UUID applicationId) {
+    this.applicationId = applicationId;
   }
 
   /**
    * Creation time
    **/
-  public Device createdAt(OffsetDateTime createdAt) {
+  public DeviceApplication createdAt(OffsetDateTime createdAt) {
     this.createdAt = createdAt;
     return this;
   }
@@ -123,7 +105,7 @@ public class Device   {
   /**
    * Last modification time
    **/
-  public Device modifiedAt(OffsetDateTime modifiedAt) {
+  public DeviceApplication modifiedAt(OffsetDateTime modifiedAt) {
     this.modifiedAt = modifiedAt;
     return this;
   }
@@ -148,29 +130,27 @@ public class Device   {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    Device device = (Device) o;
-    return Objects.equals(id, device.id) &&
-        Objects.equals(name, device.name) &&
-        Objects.equals(groupId, device.groupId) &&
-        Objects.equals(apiKey, device.apiKey) &&
-        Objects.equals(createdAt, device.createdAt) &&
-        Objects.equals(modifiedAt, device.modifiedAt);
+    DeviceApplication deviceApplication = (DeviceApplication) o;
+    return Objects.equals(id, deviceApplication.id) &&
+        Objects.equals(deviceId, deviceApplication.deviceId) &&
+        Objects.equals(applicationId, deviceApplication.applicationId) &&
+        Objects.equals(createdAt, deviceApplication.createdAt) &&
+        Objects.equals(modifiedAt, deviceApplication.modifiedAt);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, name, groupId, apiKey, createdAt, modifiedAt);
+    return Objects.hash(id, deviceId, applicationId, createdAt, modifiedAt);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class Device {\n");
+    sb.append("class DeviceApplication {\n");
     
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
-    sb.append("    name: ").append(toIndentedString(name)).append("\n");
-    sb.append("    groupId: ").append(toIndentedString(groupId)).append("\n");
-    sb.append("    apiKey: ").append(toIndentedString(apiKey)).append("\n");
+    sb.append("    deviceId: ").append(toIndentedString(deviceId)).append("\n");
+    sb.append("    applicationId: ").append(toIndentedString(applicationId)).append("\n");
     sb.append("    createdAt: ").append(toIndentedString(createdAt)).append("\n");
     sb.append("    modifiedAt: ").append(toIndentedString(modifiedAt)).append("\n");
     sb.append("}");
