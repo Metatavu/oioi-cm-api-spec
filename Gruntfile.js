@@ -57,7 +57,7 @@ module.exports = function(grunt) {
         command : `mkdir -p jaxrs-spec-generated/src/main/java/${JAXRS_TARGET_FOLDER} && mv jaxrs-spec-generated/src/main/java/io/swagger/* jaxrs-spec-generated/src/main/java/${JAXRS_TARGET_FOLDER}`
       },
       "jaxrs-spec-install": {
-        command : "mvn install",
+        command : "mvn install -Dmaven.javadoc.skip=true",
         options: {
           execOptions: {
             cwd: "jaxrs-spec-generated"
@@ -88,7 +88,7 @@ module.exports = function(grunt) {
           '-o java-generated/'
       },
       'java-install': {
-        command : 'mvn install',
+        command : 'mvn install -Dmaven.javadoc.skip=true',
         options: {
           execOptions: {
             cwd: 'java-generated'
