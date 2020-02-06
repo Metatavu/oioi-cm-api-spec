@@ -1309,6 +1309,9 @@ components:
         name:
           description: Device name.
           type: string
+        imageUrl:
+          type: string
+          format: url
         apiKey:
           type: string
         metas:
