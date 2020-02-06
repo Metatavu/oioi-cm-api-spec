@@ -6,13 +6,215 @@ info:
 security:
   - BearerAuth: []
 paths:
-  /devices:
+  /customers:
+    get:
+      operationId: listCustomers
+      summary: List customers
+      description: List customers
+      tags:
+        - Customers
+      responses:
+        '200':
+          description: Customers
+          content:
+            application/json;charset=utf-8:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Customer'
+        '400':
+          description: Invalid request was sent to the server
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: Attempted to make a call with unauthorized client
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal server error
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    post:
+      operationId: createCustomer
+      summary: Create a customer
+      description: Create customer
+      tags:
+        - Customers
+      requestBody:
+        content:
+          application/json;charset=utf-8:
+            schema:
+              $ref: '#/components/schemas/Customer'
+        description: Payload
+        required: true
+      responses:
+        '200':
+          description: Created customer
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Customer'
+        '400':
+          description: Invalid request was sent to the server
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: Attempted to make a call with unauthorized client
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal server error
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  '/customers/{customerId}':
+    get:
+      operationId: findCustomer
+      summary: Finds a customer
+      description: Finds a customer
+      tags:
+        - Customers
+      parameters:
+        - name: customerId
+          required: true
+          in: path
+          description: customer id
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Found customer
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Customer'
+        '400':
+          description: Invalid request was sent to the server
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: Attempted to make a call with unauthorized client
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal server error
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    put:
+      operationId: updateCustomer
+      summary: Updates customer
+      description: Updates a customer
+      tags:
+        - Customers
+      parameters:
+        - name: customerId
+          required: true
+          in: path
+          description: customer id
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        content:
+          application/json;charset=utf-8:
+            schema:
+              $ref: '#/components/schemas/Customer'
+        description: Payload
+        required: true
+      responses:
+        '200':
+          description: Updated customer
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Customer'
+        '400':
+          description: Invalid request was sent to the server
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: Attempted to make a call with unauthorized client
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal server error
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    delete:
+      operationId: deleteCustomer
+      summary: Delete customer
+      description: Delete a customer
+      tags:
+        - Customers
+      parameters:
+        - name: customerId
+          required: true
+          in: path
+          description: customer id
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '204':
+          description: Successful removal
+        '400':
+          description: Invalid request was sent to the server
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: Attempted to make a call with unauthorized client
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal server error
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    
+  /customers/{customerId}/devices:
     get:
       operationId: listDevices
       summary: List devices
       description: List devices
       tags:
         - Devices
+      parameters:
+        - name: customerId
+          required: true
+          in: path
+          description: customer id
+          schema:
+            type: string
+            format: uuid
       responses:
         '200':
           description: Devices
@@ -46,6 +248,14 @@ paths:
       description: Create device
       tags:
         - Devices
+      parameters:
+        - name: customerId
+          required: true
+          in: path
+          description: customer id
+          schema:
+            type: string
+            format: uuid
       requestBody:
         content:
           application/json;charset=utf-8:
@@ -78,7 +288,7 @@ paths:
             application/json;charset=utf-8:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
-  '/devices/{deviceId}':
+  '/customers/{customerId}/devices/{deviceId}':
     get:
       operationId: findDevice
       summary: Finds a device
@@ -86,6 +296,13 @@ paths:
       tags:
         - Devices
       parameters:
+        - name: customerId
+          required: true
+          in: path
+          description: customer id
+          schema:
+            type: string
+            format: uuid
         - name: deviceId
           required: true
           in: path
@@ -125,6 +342,13 @@ paths:
       tags:
         - Devices
       parameters:
+        - name: customerId
+          required: true
+          in: path
+          description: customer id
+          schema:
+            type: string
+            format: uuid
         - name: deviceId
           required: true
           in: path
@@ -171,6 +395,13 @@ paths:
       tags:
         - Devices
       parameters:
+        - name: customerId
+          required: true
+          in: path
+          description: customer id
+          schema:
+            type: string
+            format: uuid
         - name: deviceId
           required: true
           in: path
@@ -200,13 +431,28 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
                 
-  /applications:
+  '/customers/{customerId}/devices/{deviceId}/applications':
     get:
       operationId: listApplications
       summary: List applications
       description: List applications
       tags:
         - Applications
+      parameters:
+        - name: customerId
+          required: true
+          in: path
+          description: customer id
+          schema:
+            type: string
+            format: uuid
+        - name: deviceId
+          required: true
+          in: path
+          description: device id
+          schema:
+            type: string
+            format: uuid
       responses:
         '200':
           description: Applications
@@ -247,6 +493,21 @@ paths:
               $ref: '#/components/schemas/Application'
         description: Payload
         required: true
+      parameters:
+        - name: customerId
+          required: true
+          in: path
+          description: customer id
+          schema:
+            type: string
+            format: uuid
+        - name: deviceId
+          required: true
+          in: path
+          description: device id
+          schema:
+            type: string
+            format: uuid
       responses:
         '200':
           description: Created application
@@ -272,7 +533,8 @@ paths:
             application/json;charset=utf-8:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
-  '/applications/{applicationId}':
+
+  '/customers/{customerId}/devices/{deviceId}/applications/{applicationId}':
     get:
       operationId: findApplication
       summary: Finds an application
@@ -280,6 +542,20 @@ paths:
       tags:
         - Applications
       parameters:
+        - name: customerId
+          required: true
+          in: path
+          description: customer id
+          schema:
+            type: string
+            format: uuid
+        - name: deviceId
+          required: true
+          in: path
+          description: device id
+          schema:
+            type: string
+            format: uuid
         - name: applicationId
           required: true
           in: path
@@ -319,6 +595,20 @@ paths:
       tags:
         - Applications
       parameters:
+        - name: customerId
+          required: true
+          in: path
+          description: customer id
+          schema:
+            type: string
+            format: uuid
+        - name: deviceId
+          required: true
+          in: path
+          description: device id
+          schema:
+            type: string
+            format: uuid
         - name: applicationId
           required: true
           in: path
@@ -365,43 +655,13 @@ paths:
       tags:
         - Applications
       parameters:
-        - name: applicationId
+        - name: customerId
           required: true
           in: path
-          description: application id
+          description: customer id
           schema:
             type: string
             format: uuid
-      responses:
-        '204':
-          description: Successful removal
-        '400':
-          description: Invalid request was sent to the server
-          content:
-            application/json;charset=utf-8:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
-        '403':
-          description: Attempted to make a call with unauthorized client
-          content:
-            application/json;charset=utf-8:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
-        '500':
-          description: Internal server error
-          content:
-            application/json;charset=utf-8:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
-
-  '/devices/{deviceId}/applications':
-    get:
-      operationId: listDeviceApplications
-      summary: List device applications
-      description: Lists device applications
-      tags:
-        - DeviceApplications
-      parameters:
         - name: deviceId
           required: true
           in: path
@@ -409,194 +669,7 @@ paths:
           schema:
             type: string
             format: uuid
-      responses:
-        '200':
-          description: Found device applications
-          content:
-            application/json;charset=utf-8:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/DeviceApplication'
-        '400':
-          description: Invalid request was sent to the server
-          content:
-            application/json;charset=utf-8:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
-        '403':
-          description: Attempted to make a call with unauthorized client
-          content:
-            application/json;charset=utf-8:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
-        '500':
-          description: Internal server error
-          content:
-            application/json;charset=utf-8:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
-    post:
-      operationId: createDeviceApplication
-      summary: Create a device application
-      description: Create device application
-      tags:
-        - DeviceApplications
-      parameters:
         - name: applicationId
-          required: true
-          in: path
-          description: application id
-          schema:
-            type: string
-            format: uuid
-      requestBody:
-        content:
-          application/json;charset=utf-8:
-            schema:
-              $ref: '#/components/schemas/Application'
-        description: Payload
-        required: true
-      responses:
-        '200':
-          description: Created application
-          content:
-            application/json;charset=utf-8:
-              schema:
-                $ref: '#/components/schemas/Application'
-        '400':
-          description: Invalid request was sent to the server
-          content:
-            application/json;charset=utf-8:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
-        '403':
-          description: Attempted to make a call with unauthorized client
-          content:
-            application/json;charset=utf-8:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
-        '500':
-          description: Internal server error
-          content:
-            application/json;charset=utf-8:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
-  '/devices/{deviceId}/applications/{deviceApplicationId}':
-    get:
-      operationId: findDeviceApplication
-      summary: Finds a device application
-      description: Finds a device application
-      tags:
-        - DeviceApplications
-      parameters:
-        - name: applicationId
-          required: true
-          in: path
-          description: application id
-          schema:
-            type: string
-            format: uuid
-        - name: deviceApplicationId
-          required: true
-          in: path
-          description: application id
-          schema:
-            type: string
-            format: uuid
-      responses:
-        '200':
-          description: Found device application
-          content:
-            application/json;charset=utf-8:
-              schema:
-                $ref: '#/components/schemas/DeviceApplication'
-        '400':
-          description: Invalid request was sent to the server
-          content:
-            application/json;charset=utf-8:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
-        '403':
-          description: Attempted to make a call with unauthorized client
-          content:
-            application/json;charset=utf-8:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
-        '500':
-          description: Internal server error
-          content:
-            application/json;charset=utf-8:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
-    put:
-      operationId: updateDeviceApplication
-      summary: Updates device application
-      description: Updates a device application
-      tags:
-        - DeviceApplications
-      parameters:
-        - name: applicationId
-          required: true
-          in: path
-          description: application id
-          schema:
-            type: string
-            format: uuid
-        - name: deviceApplicationId
-          required: true
-          in: path
-          description: application id
-          schema:
-            type: string
-            format: uuid
-      requestBody:
-        content:
-          application/json;charset=utf-8:
-            schema:
-              $ref: '#/components/schemas/DeviceApplication'
-        description: Payload
-        required: true
-      responses:
-        '200':
-          description: Updated application
-          content:
-            application/json;charset=utf-8:
-              schema:
-                $ref: '#/components/schemas/DeviceApplication'
-        '400':
-          description: Invalid request was sent to the server
-          content:
-            application/json;charset=utf-8:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
-        '403':
-          description: Attempted to make a call with unauthorized client
-          content:
-            application/json;charset=utf-8:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
-        '500':
-          description: Internal server error
-          content:
-            application/json;charset=utf-8:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
-    delete:
-      operationId: deleteDeviceApplication
-      summary: Delete device application
-      description: Delete a device application
-      tags:
-        - DeviceApplications
-      parameters:
-        - name: applicationId
-          required: true
-          in: path
-          description: application id
-          schema:
-            type: string
-            format: uuid
-        - name: deviceApplicationId
           required: true
           in: path
           description: application id
@@ -625,7 +698,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
 
-  /medias:
+  '/customers/{customerId}/medias':
     get:
       operationId: listMedias
       summary: List medias
@@ -633,13 +706,18 @@ paths:
       tags:
         - Medias
       parameters:
-        - name: groupId
+        - name: customerId
           required: true
-          in: query
-          description: group id
+          in: path
+          description: customer id
           schema:
             type: string
             format: uuid
+        - name: type
+          in: query
+          description: filter by media type 
+          schema:
+            $ref: '#/components/schemas/MediaType'
       responses:
         '200':
           description: Medias
@@ -674,10 +752,10 @@ paths:
       tags:
         - Medias
       parameters:
-        - name: groupId
+        - name: customerId
           required: true
-          in: query
-          description: group id
+          in: path
+          description: customer id
           schema:
             type: string
             format: uuid
@@ -713,7 +791,8 @@ paths:
             application/json;charset=utf-8:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
-  '/medias/{mediaId}':
+
+  '/customers/{customerId}/medias/{mediaId}':
     get:
       operationId: findMedia
       summary: Finds a media
@@ -721,13 +800,20 @@ paths:
       tags:
         - Medias
       parameters:
+        - name: customerId
+          required: true
+          in: path
+          description: customer id
+          schema:
+            type: string
+            format: uuid
         - name: mediaId
           required: true
           in: path
           description: media id
           schema:
             type: string
-            format: uuid            
+            format: uuid
       responses:
         '200':
           description: Found media
@@ -760,6 +846,13 @@ paths:
       tags:
         - Medias
       parameters:
+        - name: customerId
+          required: true
+          in: path
+          description: customer id
+          schema:
+            type: string
+            format: uuid
         - name: mediaId
           required: true
           in: path
@@ -806,6 +899,13 @@ paths:
       tags:
         - Medias
       parameters:
+        - name: customerId
+          required: true
+          in: path
+          description: customer id
+          schema:
+            type: string
+            format: uuid
         - name: mediaId
           required: true
           in: path
@@ -834,15 +934,29 @@ paths:
             application/json;charset=utf-8:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
-
-  '/devices/{deviceId}/applications/{deviceApplicationId}/resources':
+                
+  '/customers/{customerId}/devices/{deviceId}/applications/{applicationId}/resources':
     get:
-      operationId: listDeviceApplicationResources
-      summary: Lists device application resources
-      description: Lists resources from device application
+      operationId: listResources
+      summary: List resources
+      description: List resources
       tags:
-        - DeviceApplicationResources
+        - Resources
       parameters:
+        - name: customerId
+          required: true
+          in: path
+          description: customer id
+          schema:
+            type: string
+            format: uuid
+        - name: deviceId
+          required: true
+          in: path
+          description: device id
+          schema:
+            type: string
+            format: uuid
         - name: applicationId
           required: true
           in: path
@@ -850,22 +964,21 @@ paths:
           schema:
             type: string
             format: uuid
-        - name: deviceApplicationId
-          required: true
-          in: path
-          description: application id
+        - name: parentId
+          in: query
+          description: parent id
           schema:
             type: string
             format: uuid
       responses:
         '200':
-          description: Found device application resources
+          description: Resources
           content:
             application/json;charset=utf-8:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/DeviceApplicationResource'
+                  $ref: '#/components/schemas/Resource'
         '400':
           description: Invalid request was sent to the server
           content:
@@ -885,12 +998,33 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
     post:
-      operationId: createDeviceApplicationResource
-      summary: Create device application resource
-      description: Create device application resource
+      operationId: createResource
+      summary: Create a resource
+      description: Create resource
       tags:
-        - DeviceApplicationResources
+        - Resources
+      requestBody:
+        content:
+          application/json;charset=utf-8:
+            schema:
+              $ref: '#/components/schemas/Resource'
+        description: Payload
+        required: true
       parameters:
+        - name: customerId
+          required: true
+          in: path
+          description: customer id
+          schema:
+            type: string
+            format: uuid
+        - name: deviceId
+          required: true
+          in: path
+          description: device id
+          schema:
+            type: string
+            format: uuid
         - name: applicationId
           required: true
           in: path
@@ -898,27 +1032,13 @@ paths:
           schema:
             type: string
             format: uuid
-        - name: deviceApplicationId
-          required: true
-          in: path
-          description: application id
-          schema:
-            type: string
-            format: uuid
-      requestBody:
-        content:
-          application/json;charset=utf-8:
-            schema:
-              $ref: '#/components/schemas/DeviceApplicationResource'
-        description: Payload
-        required: true
       responses:
         '200':
-          description: Created device application resource
+          description: Created resource
           content:
             application/json;charset=utf-8:
               schema:
-                $ref: '#/components/schemas/DeviceApplicationResource'
+                $ref: '#/components/schemas/Resource'
         '400':
           description: Invalid request was sent to the server
           content:
@@ -938,14 +1058,28 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
 
-  '/devices/{deviceId}/applications/{deviceApplicationId}/resources/{deviceApplicationResourceId}':
+  '/customers/{customerId}/devices/{deviceId}/applications/{applicationId}/resources/{resourceId}':
     get:
-      operationId: findDeviceApplicationResource
-      summary: Find device application resource
-      description: Find a device application resource
+      operationId: findResource
+      summary: Finds a resource
+      description: Finds an resource
       tags:
-        - DeviceApplicationResources
+        - Resources
       parameters:
+        - name: customerId
+          required: true
+          in: path
+          description: customer id
+          schema:
+            type: string
+            format: uuid
+        - name: deviceId
+          required: true
+          in: path
+          description: device id
+          schema:
+            type: string
+            format: uuid
         - name: applicationId
           required: true
           in: path
@@ -953,27 +1087,20 @@ paths:
           schema:
             type: string
             format: uuid
-        - name: deviceApplicationId
+        - name: resourceId
           required: true
           in: path
-          description: application id
-          schema:
-            type: string
-            format: uuid
-        - name: deviceApplicationResourceId
-          required: true
-          in: path
-          description: device application resource id
+          description: resource id
           schema:
             type: string
             format: uuid
       responses:
         '200':
-          description: Found device application resource
+          description: Found resource
           content:
             application/json;charset=utf-8:
               schema:
-                $ref: '#/components/schemas/DeviceApplicationResource'
+                $ref: '#/components/schemas/Resource'
         '400':
           description: Invalid request was sent to the server
           content:
@@ -992,6 +1119,129 @@ paths:
             application/json;charset=utf-8:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+    put:
+      operationId: updateResource
+      summary: Updates resource
+      description: Updates resource
+      tags:
+        - Resources
+      parameters:
+        - name: customerId
+          required: true
+          in: path
+          description: customer id
+          schema:
+            type: string
+            format: uuid
+        - name: deviceId
+          required: true
+          in: path
+          description: device id
+          schema:
+            type: string
+            format: uuid
+        - name: applicationId
+          required: true
+          in: path
+          description: application id
+          schema:
+            type: string
+            format: uuid
+        - name: resourceId
+          required: true
+          in: path
+          description: resource id
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        content:
+          application/json;charset=utf-8:
+            schema:
+              $ref: '#/components/schemas/Resource'
+        description: Payload
+        required: true
+      responses:
+        '200':
+          description: Updated resource
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Resource'
+        '400':
+          description: Invalid request was sent to the server
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: Attempted to make a call with unauthorized client
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal server error
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    delete:
+      operationId: deleteResource
+      summary: Delete resource
+      description: Delete an resource
+      tags:
+        - Resources
+      parameters:
+        - name: customerId
+          required: true
+          in: path
+          description: customer id
+          schema:
+            type: string
+            format: uuid
+        - name: deviceId
+          required: true
+          in: path
+          description: device id
+          schema:
+            type: string
+            format: uuid
+        - name: applicationId
+          required: true
+          in: path
+          description: application id
+          schema:
+            type: string
+            format: uuid
+        - name: resourceId
+          required: true
+          in: path
+          description: resource id
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '204':
+          description: Successful removal
+        '400':
+          description: Invalid request was sent to the server
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: Attempted to make a call with unauthorized client
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal server error
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'                
                 
 servers:
   - url: /v1
@@ -1001,27 +1251,50 @@ components:
       type: http
       scheme: bearer
   schemas:
-    
-    Meta:
+    KeyValueProperty:
       type: object
       required:
-        - name
+        - key
         - value
       properties:
-        name:
+        key:
           type: string
         value:
           type: string
-          
-    MediaType:
-      type: string
-      enum:
-        - FOLDER
-        - IMAGE
-        - TEXT
-        - VIDEO
-        - PDF
 
+    Customer:
+      type: object
+      required:
+        - name
+      properties:
+        id:
+          description: Customer id.
+          type: string
+          format: uuid
+          readOnly: true
+        name:
+          description: Customer name.
+          type: string
+        imageUrl:
+          type: string
+          format: url
+        createdAt:
+          description: Creation time
+          type: string
+          format: date-time
+          readOnly: true
+        modifiedAt:
+          description: Last modification time
+          type: string
+          format: date-time
+          readOnly: true
+        creatorId:
+          type: string
+          format: uuid
+        lastModifierId:
+          type: string
+          format: uuid
+        
     Device:
       type: object
       required:
@@ -1036,15 +1309,12 @@ components:
         name:
           description: Device name.
           type: string
-        groupId:
-          type: string
-          readOnly: true
         apiKey:
           type: string
         metas:
           type: array
           items:
-            $ref: '#/components/schemas/Meta'
+            $ref: '#/components/schemas/KeyValueProperty'
         createdAt:
           description: Creation time
           type: string
@@ -1055,22 +1325,31 @@ components:
           type: string
           format: date-time
           readOnly: true
-          
+        creatorId:
+          type: string
+          format: uuid
+        lastModifierId:
+          type: string
+          format: uuid
+
     Application:
       type: object
       required:
         - name
       properties:
         id:
-          description: Device id.
+          description: Application id.
+          type: string
+          format: uuid
+          readOnly: true
+        rootResourceId:
+          description: Application root resource id.
           type: string
           format: uuid
           readOnly: true
         name:
           description: Application name.
           type: string
-        structure:
-          $ref: '#/components/schemas/ApplicationStructure'
         createdAt:
           description: Creation time
           type: string
@@ -1081,67 +1360,34 @@ components:
           type: string
           format: date-time
           readOnly: true
-    
-    ApplicationStructure:
-      type: array
-      items:
-        $ref: '#/components/schemas/ApplicationStructureItem'
-    
-    ApplicationStructureItem:
-      type: object
-      required:
-        - path
-        - allowedTypes
-      properties:
-        path: 
+        creatorId:
           type: string
-        allowedTypes:
-          type: array
-          items:
-            $ref: '#/components/schemas/MediaType'
+          format: uuid
+        lastModifierId:
+          type: string
+          format: uuid
           
-    DeviceApplication:
-      type: object
-      required:
-        - deviceId
-        - applicationId
-      properties:
-        id:
-          description: Device application id.
-          type: string
-          format: uuid
-          readOnly: true
-        deviceId:
-          description: Device id.
-          type: string
-          format: uuid
-        applicationId:
-          description: Application id.
-          type: string
-          format: uuid
-        createdAt:
-          description: Creation time
-          type: string
-          format: date-time
-          readOnly: true
-        modifiedAt:
-          description: Last modification time
-          type: string
-          format: date-time
-          readOnly: true
-        
-    ResourceStyle:
-      type: object
-      properties:
-        backgroundColor:
-          type: string
-        foregroundColor:
-          type: string
+    ResourceType:
+      type: string
+      enum:
+        - ROOT
+        - INTRO
+        - LANGUAGE
+        - SLIDESHOW
+        - MENU
+        - PAGE
+        - PDF
+        - IMAGE
+        - VIDEO
+        - TEXT
           
-    DeviceApplicationResource:
+    Resource:
       type: object
       required:
         - type
+        - name
+        - slug
+        - parentId
       properties:
         id:
           description: Resource id.
@@ -1149,21 +1395,30 @@ components:
           format: uuid
           readOnly: true
         parentId:
-          description: Parent resource id
+          description: Resource parent id.
           type: string
           format: uuid
-        deviceApplicationId:
-          description: Device application id.
-          type: string
-          format: uuid
-          readOnly: true
+        orderNumber:
+          type: integer
         type:
-          $ref: '#/components/schemas/MediaType'
+          $ref: '#/components/schemas/ResourceType'
+        styles:
+          type: array
+          items:
+            $ref: '#/components/schemas/KeyValueProperty'
+        properties:
+          type: array
+          items:
+            $ref: '#/components/schemas/KeyValueProperty'
+        name:
+          description: Resource display name.
+          type: string
         data:
           description: Resource data, either URL on images, videos, etc and text data on text resources
           type: string
-        styles:
-          $ref: '#/components/schemas/ResourceStyle'
+        slug:
+          description: Resource slug name.
+          type: string
         createdAt:
           description: Creation time
           type: string
@@ -1174,9 +1429,26 @@ components:
           type: string
           format: date-time
           readOnly: true
+        creatorId:
+          type: string
+          format: uuid
+        lastModifierId:
+          type: string
+          format: uuid
+
+    MediaType:
+      type: string
+      enum:
+        - IMAGE
+        - VIDEO
+        - PDF
           
     Media:
       type: object
+      required:
+        - contentType
+        - url
+        - type
       properties:
         id:
           description: Media id.
@@ -1200,7 +1472,13 @@ components:
           type: string
           format: date-time
           readOnly: true
-            
+        creatorId:
+          type: string
+          format: uuid
+        lastModifierId:
+          type: string
+          format: uuid
+
     ErrorResponse:
       type: object
       properties:
