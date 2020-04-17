@@ -1391,7 +1391,6 @@ components:
         - type
         - name
         - slug
-        - parentId
       properties:
         id:
           description: Resource id.
