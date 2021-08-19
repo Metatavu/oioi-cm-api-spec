@@ -1378,6 +1378,7 @@ components:
         - LANGUAGE_MENU
         - LANGUAGE
         - SLIDESHOW
+        - SLIDESHOW_PDF
         - MENU
         - PAGE
         - PDF
