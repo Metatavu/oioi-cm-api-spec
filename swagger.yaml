@@ -1484,6 +1484,110 @@ components:
           type: string
           format: uuid
 
+    WallApplication:
+      type: object
+      readOnly: true
+      required:
+        - root
+        - modifiedAt
+      properties:
+        root:
+          $ref: '#/components/schemas/WallResource'
+        modifiedAt:
+          description: Last modification time
+          type: string
+          format: date-time
+          readOnly: true
+
+    WallDevice:
+      type: object
+      readOnly: true
+      required:
+        - name
+        - applications
+        - modifiedAt
+      properties:
+        name:
+          type: string
+        applications:
+          type: array
+          items:
+            $ref: '#/components/schemas/WallDeviceApplication'
+        activeApplication:
+          type: string
+          format: uuid
+        modifiedAt:
+          description: Last modification time
+          type: string
+          format: date-time
+          readOnly: true
+
+    WallDeviceApplication:
+      type: object
+      readOnly: true
+      required:
+        - id
+        - name
+        - properties
+        - styles
+        - modifiedAt
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+        styles:
+          type: object
+          additionalProperties:
+            type: string
+        properties:
+          type: object
+          additionalProperties:
+            type: string
+        modifiedAt:
+          description: Last modification time
+          type: string
+          format: date-time
+          readOnly: true
+
+    WallResource:
+      type: object
+      readOnly: true
+      required:
+        - slug
+        - type
+        - children
+        - properties
+        - styles
+        - modifiedAt
+      properties:
+        slug:
+          type: string
+        type:
+          $ref: '#/components/schemas/ResourceType'
+        name:
+          type: string
+        data:
+          type: string
+        children:
+          type: array
+          items:
+            $ref: '#/components/schemas/WallResource'
+        styles:
+          type: object
+          additionalProperties:
+            type: string
+        properties:
+          type: object
+          additionalProperties:
+            type: string
+        modifiedAt:
+          description: Last modification time
+          type: string
+          format: date-time
+          readOnly: true
+
     ErrorResponse:
       type: object
       properties:
