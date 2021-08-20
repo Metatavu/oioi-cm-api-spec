@@ -1241,7 +1241,89 @@ paths:
           content:
             application/json;charset=utf-8:
               schema:
-                $ref: '#/components/schemas/ErrorResponse'                
+                $ref: '#/components/schemas/ErrorResponse'
+
+  '/v1/application/{applicationId}':
+    get:
+      operationId: getApplicationJson
+      summary: Returns application wall JSON
+      description: Returns application wall JSON
+      tags:
+        - WallApplications
+      parameters:
+        - name: applicationId
+          required: true
+          in: path
+          description: application id
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Wall application JSON
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/WallApplication'
+        '400':
+          description: Invalid request was sent to the server
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: Attempted to make a call with unauthorized client
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal server error
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  '/v1/device/{deviceId}':
+    get:
+      operationId: getDeviceJson
+      summary: Returns device wall JSON
+      description: Returns device wall JSON
+      tags:
+        - WallDevices
+      parameters:
+        - name: deviceId
+          required: true
+          in: path
+          description: device id
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Wall device JSON
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/WallDevice'
+        '400':
+          description: Invalid request was sent to the server
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: Attempted to make a call with unauthorized client
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal server error
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
                 
 servers:
   - url: /
