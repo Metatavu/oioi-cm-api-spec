@@ -6,7 +6,7 @@ info:
 security:
   - BearerAuth: []
 paths:
-  /customers:
+  /v1/customers:
     get:
       operationId: listCustomers
       summary: List customers
@@ -78,7 +78,7 @@ paths:
             application/json;charset=utf-8:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
-  '/customers/{customerId}':
+  '/v1/customers/{customerId}':
     get:
       operationId: findCustomer
       summary: Finds a customer
@@ -199,8 +199,8 @@ paths:
             application/json;charset=utf-8:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
-
-  /customers/{customerId}/devices:
+    
+  /v1/customers/{customerId}/devices:
     get:
       operationId: listDevices
       summary: List devices
@@ -288,7 +288,7 @@ paths:
             application/json;charset=utf-8:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
-  '/customers/{customerId}/devices/{deviceId}':
+  '/v1/customers/{customerId}/devices/{deviceId}':
     get:
       operationId: findDevice
       summary: Finds a device
@@ -431,7 +431,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
                 
-  '/customers/{customerId}/devices/{deviceId}/applications':
+  '/v1/customers/{customerId}/devices/{deviceId}/applications':
     get:
       operationId: listApplications
       summary: List applications
@@ -534,7 +534,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
 
-  '/customers/{customerId}/devices/{deviceId}/applications/{applicationId}':
+  '/v1/customers/{customerId}/devices/{deviceId}/applications/{applicationId}':
     get:
       operationId: findApplication
       summary: Finds an application
@@ -698,7 +698,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
 
-  '/customers/{customerId}/medias':
+  '/v1/customers/{customerId}/medias':
     get:
       operationId: listMedias
       summary: List medias
@@ -792,7 +792,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
 
-  '/customers/{customerId}/medias/{mediaId}':
+  '/v1/customers/{customerId}/medias/{mediaId}':
     get:
       operationId: findMedia
       summary: Finds a media
@@ -935,7 +935,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
                 
-  '/customers/{customerId}/devices/{deviceId}/applications/{applicationId}/resources':
+  '/v1/customers/{customerId}/devices/{deviceId}/applications/{applicationId}/resources':
     get:
       operationId: listResources
       summary: List resources
@@ -1058,7 +1058,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
 
-  '/customers/{customerId}/devices/{deviceId}/applications/{applicationId}/resources/{resourceId}':
+  '/v1/customers/{customerId}/devices/{deviceId}/applications/{applicationId}/resources/{resourceId}':
     get:
       operationId: findResource
       summary: Finds a resource
@@ -1241,15 +1241,105 @@ paths:
           content:
             application/json;charset=utf-8:
               schema:
-                $ref: '#/components/schemas/ErrorResponse'                
+                $ref: '#/components/schemas/ErrorResponse'
+
+  '/v1/application/{applicationId}':
+    get:
+      security:
+        - ApiKeyAuth: [ ]
+      operationId: getApplicationJson
+      summary: Returns application wall JSON
+      description: Returns application wall JSON
+      tags:
+        - WallApplications
+      parameters:
+        - name: applicationId
+          required: true
+          in: path
+          description: application id
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Wall application JSON
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/WallApplication'
+        '400':
+          description: Invalid request was sent to the server
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: Attempted to make a call with unauthorized client
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal server error
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  '/v1/device/{deviceId}':
+    get:
+      security:
+        - ApiKeyAuth: [ ]
+      operationId: getDeviceJson
+      summary: Returns device wall JSON
+      description: Returns device wall JSON
+      tags:
+        - WallDevices
+      parameters:
+        - name: deviceId
+          required: true
+          in: path
+          description: device id
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Wall device JSON
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/WallDevice'
+        '400':
+          description: Invalid request was sent to the server
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: Attempted to make a call with unauthorized client
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal server error
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
                 
 servers:
-  - url: /v1
+  - url: /
 components:
   securitySchemes:
     BearerAuth:
       type: http
       scheme: bearer
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-API-KEY
   schemas:
     KeyValueProperty:
       type: object
@@ -1294,12 +1384,11 @@ components:
         lastModifierId:
           type: string
           format: uuid
-        
+
     Device:
       type: object
       required:
         - name
-        - apiKey
       properties:
         id:
           description: Device id.
@@ -1379,12 +1468,14 @@ components:
         - LANGUAGE_MENU
         - LANGUAGE
         - SLIDESHOW
+        - SLIDESHOW_PDF
         - MENU
         - PAGE
         - PDF
         - IMAGE
         - VIDEO
         - TEXT
+        - APPLICATION
           
     Resource:
       type: object
@@ -1482,6 +1573,110 @@ components:
         lastModifierId:
           type: string
           format: uuid
+
+    WallApplication:
+      type: object
+      readOnly: true
+      required:
+        - root
+        - modifiedAt
+      properties:
+        root:
+          $ref: '#/components/schemas/WallResource'
+        modifiedAt:
+          description: Last modification time
+          type: string
+          format: date-time
+          readOnly: true
+
+    WallDevice:
+      type: object
+      readOnly: true
+      required:
+        - name
+        - applications
+        - modifiedAt
+      properties:
+        name:
+          type: string
+        applications:
+          type: array
+          items:
+            $ref: '#/components/schemas/WallDeviceApplication'
+        activeApplication:
+          type: string
+          format: uuid
+        modifiedAt:
+          description: Last modification time
+          type: string
+          format: date-time
+          readOnly: true
+
+    WallDeviceApplication:
+      type: object
+      readOnly: true
+      required:
+        - id
+        - name
+        - properties
+        - styles
+        - modifiedAt
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+        styles:
+          type: object
+          additionalProperties:
+            type: string
+        properties:
+          type: object
+          additionalProperties:
+            type: string
+        modifiedAt:
+          description: Last modification time
+          type: string
+          format: date-time
+          readOnly: true
+
+    WallResource:
+      type: object
+      readOnly: true
+      required:
+        - slug
+        - type
+        - children
+        - properties
+        - styles
+        - modifiedAt
+      properties:
+        slug:
+          type: string
+        type:
+          $ref: '#/components/schemas/ResourceType'
+        name:
+          type: string
+        data:
+          type: string
+        children:
+          type: array
+          items:
+            $ref: '#/components/schemas/WallResource'
+        styles:
+          type: object
+          additionalProperties:
+            type: string
+        properties:
+          type: object
+          additionalProperties:
+            type: string
+        modifiedAt:
+          description: Last modification time
+          type: string
+          format: date-time
+          readOnly: true
 
     ErrorResponse:
       type: object
