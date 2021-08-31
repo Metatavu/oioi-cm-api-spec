@@ -199,7 +199,7 @@ paths:
             application/json;charset=utf-8:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
-    
+
   /customers/{customerId}/devices:
     get:
       operationId: listDevices
@@ -1373,6 +1373,7 @@ components:
     ResourceType:
       type: string
       enum:
+        - CONTENT_VERSION
         - ROOT
         - INTRO
         - LANGUAGE_MENU
