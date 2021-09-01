@@ -1384,7 +1384,7 @@ components:
         lastModifierId:
           type: string
           format: uuid
-        
+
     Device:
       type: object
       required:
@@ -1462,6 +1462,7 @@ components:
     ResourceType:
       type: string
       enum:
+        - CONTENT_VERSION
         - ROOT
         - INTRO
         - LANGUAGE_MENU
