@@ -199,7 +199,7 @@ paths:
             application/json;charset=utf-8:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
-    
+
   /v1/customers/{customerId}/devices:
     get:
       operationId: listDevices
@@ -430,7 +430,7 @@ paths:
             application/json;charset=utf-8:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
-                
+
   '/v1/customers/{customerId}/devices/{deviceId}/applications':
     get:
       operationId: listApplications
@@ -715,7 +715,7 @@ paths:
             format: uuid
         - name: type
           in: query
-          description: filter by media type 
+          description: filter by media type
           schema:
             $ref: '#/components/schemas/MediaType'
       responses:
@@ -934,7 +934,7 @@ paths:
             application/json;charset=utf-8:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
-                
+
   '/v1/customers/{customerId}/devices/{deviceId}/applications/{applicationId}/resources':
     get:
       operationId: listResources
@@ -1029,6 +1029,28 @@ paths:
           required: true
           in: path
           description: application id
+          schema:
+            type: string
+            format: uuid
+        - name: copyResourceId
+          required: false
+          in: query
+          description: |
+            Create new resource using existing resource as a source.
+
+            This copies the all properties from source resource including recursive child resources.
+
+            When copyResourceId is defined, request cannot have a body but copyResourceParentId will be mandatory
+          schema:
+            type: string
+            format: uuid
+        - name: copyResourceParentId
+          required: false
+          in: query
+          description: |
+            Specifies the target parent id for copied resource.
+
+            This parameter is required only when copyResourceId is defined
           schema:
             type: string
             format: uuid
@@ -1328,7 +1350,7 @@ paths:
             application/json;charset=utf-8:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
-                
+
 servers:
   - url: /
 components:
@@ -1458,7 +1480,7 @@ components:
         lastModifierId:
           type: string
           format: uuid
-          
+
     ResourceType:
       type: string
       enum:
@@ -1476,7 +1498,7 @@ components:
         - VIDEO
         - TEXT
         - APPLICATION
-          
+
     Resource:
       type: object
       required:
@@ -1537,7 +1559,7 @@ components:
         - IMAGE
         - VIDEO
         - PDF
-          
+
     Media:
       type: object
       required:
