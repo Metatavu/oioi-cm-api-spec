@@ -1009,7 +1009,7 @@ paths:
             schema:
               $ref: '#/components/schemas/Resource'
         description: Payload
-        required: true
+        required: false
       parameters:
         - name: customerId
           required: true
