@@ -970,6 +970,11 @@ paths:
           schema:
             type: string
             format: uuid
+        - name: resourceType
+          in: query
+          description: Filter by resource type
+          schema:
+            $ref: '#/components/schemas/ResourceType'
       responses:
         '200':
           description: Resources
@@ -1464,6 +1469,10 @@ components:
         name:
           description: Application name.
           type: string
+        activeContentVersionResourceId:
+          description: Id of currently active content version resource
+          type: string
+          format: uuid
         createdAt:
           description: Creation time
           type: string
