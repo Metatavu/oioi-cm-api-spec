@@ -965,6 +965,7 @@ paths:
             type: string
             format: uuid
         - name: parentId
+          required: true
           in: query
           description: parent id
           schema:
@@ -1275,8 +1276,8 @@ paths:
       security:
         - ApiKeyAuth: [ ]
       operationId: getApplicationJson
-      summary: Returns application wall JSON
-      description: Returns application wall JSON
+      summary: Returns application wall JSON of active content version
+      description: Returns application wall JSON of active content version
       tags:
         - WallApplications
       parameters:
@@ -1289,7 +1290,7 @@ paths:
             format: uuid
       responses:
         '200':
-          description: Wall application JSON
+          description: Wall application JSON of active content version
           content:
             application/json;charset=utf-8:
               schema:
