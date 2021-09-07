@@ -965,7 +965,6 @@ paths:
             type: string
             format: uuid
         - name: parentId
-          required: true
           in: query
           description: parent id
           schema:
