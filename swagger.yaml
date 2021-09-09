@@ -1207,6 +1207,12 @@ paths:
             application/json;charset=utf-8:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+        '409':
+          description: Resource was locked by different user
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         '500':
           description: Internal server error
           content:
@@ -1263,6 +1269,210 @@ paths:
             application/json;charset=utf-8:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+        '409':
+          description: Resource was locked by different user
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal server error
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+
+  '/v1/customers/{customerId}/devices/{deviceId}/applications/{applicationId}/resources/{resourceId}/lock':
+    get:
+      operationId: findResourceLock
+      summary: Finds a resource lock
+      description: Finds an resource lock
+      tags:
+        - Resources
+      parameters:
+        - name: customerId
+          required: true
+          in: path
+          description: customer id
+          schema:
+            type: string
+            format: uuid
+        - name: deviceId
+          required: true
+          in: path
+          description: device id
+          schema:
+            type: string
+            format: uuid
+        - name: applicationId
+          required: true
+          in: path
+          description: application id
+          schema:
+            type: string
+            format: uuid
+        - name: resourceId
+          required: true
+          in: path
+          description: resource id
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Found resource lock
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/ResourceLock'
+        '400':
+          description: Invalid request was sent to the server
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: Attempted to make a call with unauthorized client
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal server error
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    put:
+      operationId: updateResourceLock
+      summary: Updates resource lock
+      description: Updates resource lock
+      tags:
+        - Resources
+      parameters:
+        - name: customerId
+          required: true
+          in: path
+          description: customer id
+          schema:
+            type: string
+            format: uuid
+        - name: deviceId
+          required: true
+          in: path
+          description: device id
+          schema:
+            type: string
+            format: uuid
+        - name: applicationId
+          required: true
+          in: path
+          description: application id
+          schema:
+            type: string
+            format: uuid
+        - name: resourceId
+          required: true
+          in: path
+          description: resource id
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        content:
+          application/json;charset=utf-8:
+            schema:
+              $ref: '#/components/schemas/ResourceLock'
+        description: Payload
+        required: true
+      responses:
+        '200':
+          description: Updated resource
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/ResourceLock'
+        '400':
+          description: Invalid request was sent to the server
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: Attempted to make a call with unauthorized client
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '409':
+          description: Resource was locked by different user
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal server error
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    delete:
+      operationId: deleteResourceLock
+      summary: Delete resource lock
+      description: Delete an resource lock
+      tags:
+        - Resources
+      parameters:
+        - name: customerId
+          required: true
+          in: path
+          description: customer id
+          schema:
+            type: string
+            format: uuid
+        - name: deviceId
+          required: true
+          in: path
+          description: device id
+          schema:
+            type: string
+            format: uuid
+        - name: applicationId
+          required: true
+          in: path
+          description: application id
+          schema:
+            type: string
+            format: uuid
+        - name: resourceId
+          required: true
+          in: path
+          description: resource id
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '204':
+          description: Successful removal
+        '400':
+          description: Invalid request was sent to the server
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: Attempted to make a call with unauthorized client
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '409':
+          description: Resource was locked by different user
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         '500':
           description: Internal server error
           content:
@@ -1294,6 +1504,59 @@ paths:
             application/json;charset=utf-8:
               schema:
                 $ref: '#/components/schemas/WallApplication'
+        '400':
+          description: Invalid request was sent to the server
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: Attempted to make a call with unauthorized client
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal server error
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+                
+  '/v1/application/{applicationId}/lockedResourceIds':
+    get:
+      operationId: getLockedResourceIds
+      summary: Returns resource ids for locked resources
+      description: Returns resource ids for locked resources
+      tags:
+        - Resources
+      parameters:
+        - name: applicationId
+          required: true
+          in: path
+          description: application id
+          schema:
+            type: string
+            format: uuid
+        - name: resourceId
+          in: query
+          description: filter results with resource id
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Wall application JSON of active content version
+          content:
+            application/json;charset=utf-8:
+              schema:
+                type: array
+                description: Locked resource ids
+                items:
+                  type: string
+                  format: uuid
+                  readOnly: true
+                  
         '400':
           description: Invalid request was sent to the server
           content:
@@ -1610,6 +1873,21 @@ components:
         lastModifierId:
           type: string
           format: uuid
+          
+    ResourceLock:
+      type: object
+      properties:
+        expiresAt:
+          type: string
+          format: date-time
+          readOnly: true
+        userId:
+          type: string
+          format: uuid
+          readOnly: true
+        userDisplayName:
+          type: string
+          readOnly: true
 
     MediaType:
       type: string
@@ -1757,6 +2035,13 @@ components:
           type: string
           format: date-time
           readOnly: true
+          
+    Lock:
+      type: object
+      properties:
+        ownerId:
+          type: string
+          format: uuid
 
     ErrorResponse:
       type: object
