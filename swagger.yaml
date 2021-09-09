@@ -1338,7 +1338,7 @@ paths:
             type: string
       responses:
         '200':
-          description: Wall application JSON of active content version
+          description: Wall application JSON of given content version
           content:
             application/json;charset=utf-8:
               schema:
