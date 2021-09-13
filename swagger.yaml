@@ -2035,13 +2035,6 @@ components:
           type: string
           format: date-time
           readOnly: true
-          
-    Lock:
-      type: object
-      properties:
-        ownerId:
-          type: string
-          format: uuid
 
     ErrorResponse:
       type: object
