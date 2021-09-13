@@ -1546,7 +1546,7 @@ paths:
             format: uuid
       responses:
         '200':
-          description: Wall application JSON of active content version
+          description: List of locked resource ids
           content:
             application/json;charset=utf-8:
               schema:
