@@ -1819,6 +1819,7 @@ components:
         - VIDEO
         - TEXT
         - APPLICATION
+        - AUDIO
 
     Resource:
       type: object
