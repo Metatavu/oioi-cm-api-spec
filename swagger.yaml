@@ -2044,3 +2044,17 @@ components:
           description: The error message
           type: string
           readOnly: true
+
+    MqttResourceLockUpdate:
+      type: object
+      required:
+        - resourceId
+        - locked
+      properties:
+        resourceId: 
+          type: string
+          format: uuid
+          readOnly: true
+        locked:
+          type: boolean
+          readOnly: true
