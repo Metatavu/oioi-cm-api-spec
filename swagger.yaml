@@ -2056,7 +2056,6 @@ components:
         - slug
         - type
         - name
-        - data
         - children
         - properties
         - styles
