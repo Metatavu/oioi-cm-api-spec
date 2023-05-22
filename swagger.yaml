@@ -2055,6 +2055,8 @@ components:
       required:
         - slug
         - type
+        - name
+        - data
         - children
         - properties
         - styles
