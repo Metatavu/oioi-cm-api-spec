@@ -2081,7 +2081,6 @@ components:
           description: Last modification time
           type: string
           format: date-time
-          readOnly: true
 
     ErrorResponse:
       type: object
