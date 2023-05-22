@@ -1984,7 +1984,6 @@ components:
 
     WallApplication:
       type: object
-      readOnly: true
       required:
         - root
         - modifiedAt
@@ -1995,11 +1994,9 @@ components:
           description: Last modification time
           type: string
           format: date-time
-          readOnly: true
 
     WallDevice:
       type: object
-      readOnly: true
       required:
         - name
         - applications
@@ -2018,7 +2015,6 @@ components:
           description: Last modification time
           type: string
           format: date-time
-          readOnly: true
 
     WallDeviceApplication:
       type: object
