@@ -1282,6 +1282,55 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
 
+  '/v1/customers/{customerId}/devices/{deviceId}/applications/{applicationId}/importWallApplication':
+    post:
+      operationId: importWallApplication
+      summary: Endpoint for importing new content version from wall application JSON export file
+      description: Endpoint for importing new content version from wall application JSON export file
+      tags:
+          - Resources
+      parameters:
+        - name: customerId
+          required: true
+          in: path
+          description: customer id
+          schema:
+            type: string
+            format: uuid
+        - name: deviceId
+          required: true
+          in: path
+          description: device id
+          schema:
+            type: string
+            format: uuid
+        - name: applicationId
+          required: true
+          in: path
+          description: application id
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        content:
+          application/json;charset=utf-8:
+            schema:
+              $ref: '#/components/schemas/WallApplication'
+        description: Payload
+        required: true
+      responses:
+        '200':
+          description: Created content version
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Resource'
+        'default':
+          description: Internal server error
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
 
   '/v1/customers/{customerId}/devices/{deviceId}/applications/{applicationId}/resources/{resourceId}/lock':
     get:
@@ -1936,7 +1985,6 @@ components:
 
     WallApplication:
       type: object
-      readOnly: true
       required:
         - root
         - modifiedAt
@@ -1947,11 +1995,9 @@ components:
           description: Last modification time
           type: string
           format: date-time
-          readOnly: true
 
     WallDevice:
       type: object
-      readOnly: true
       required:
         - name
         - applications
@@ -1970,7 +2016,6 @@ components:
           description: Last modification time
           type: string
           format: date-time
-          readOnly: true
 
     WallDeviceApplication:
       type: object
@@ -2007,6 +2052,7 @@ components:
       required:
         - slug
         - type
+        - name
         - children
         - properties
         - styles
@@ -2036,7 +2082,6 @@ components:
           description: Last modification time
           type: string
           format: date-time
-          readOnly: true
 
     ErrorResponse:
       type: object
@@ -2044,4 +2089,18 @@ components:
         message:
           description: The error message
           type: string
+          readOnly: true
+
+    MqttResourceLockUpdate:
+      type: object
+      required:
+        - resourceId
+        - locked
+      properties:
+        resourceId: 
+          type: string
+          format: uuid
+          readOnly: true
+        locked:
+          type: boolean
           readOnly: true
