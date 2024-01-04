@@ -1571,7 +1571,7 @@ paths:
             application/json;charset=utf-8:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
-                
+
   '/v1/application/{applicationId}/lockedResourceIds':
     get:
       operationId: getLockedResourceIds
@@ -1605,7 +1605,7 @@ paths:
                   type: string
                   format: uuid
                   readOnly: true
-                  
+
         '400':
           description: Invalid request was sent to the server
           content:
@@ -1869,6 +1869,7 @@ components:
         - TEXT
         - APPLICATION
         - AUDIO
+        - COLOR
 
     Resource:
       type: object
@@ -1923,7 +1924,7 @@ components:
         lastModifierId:
           type: string
           format: uuid
-          
+
     ResourceLock:
       type: object
       properties:
